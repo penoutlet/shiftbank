@@ -1,0 +1,10 @@
+<h2> View users </h2>
+
+{{#each users}}
+	<ul>
+		<li> Username: {{username}}
+		<li> Looking for: {{lookingfor}}
+		<button id='chat-button'> Start Chat </button>
+	</ul>
+	<hr>
+{{/each}}

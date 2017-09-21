@@ -1,0 +1,29 @@
+{
+  "name": "shiftbank",
+  "version": "1.0.0",
+  "description": "Employers can upload shift information to employee's google calendars. ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/penoutlet/shiftbank.git"
+  },
+  "author": "Samuel Jones",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/penoutlet/shiftbank/issues"
+  },
+  "homepage": "https://github.com/penoutlet/shiftbank#readme",
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "body-parser": "^1.18.1",
+    "express": "^4.15.4",
+    "express-handlebars": "^3.0.0",
+    "jsonwebtoken": "^8.0.1",
+    "method-override": "^2.3.9",
+    "morgan": "^1.8.2"
+  }
+}

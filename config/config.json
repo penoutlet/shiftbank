@@ -1,0 +1,16 @@
+{
+"local": {
+"username":"root",
+"password":"root",
+"host": "localhost",
+"database": "sambook",
+"dialect": "mysql"
+},
+"development": {
+  "username": "y78ot1ktcowbl8pc",
+  "password": "pm3jjsjgshw66q0s",
+  "host": "xq7t6tasopo9xxbs.cbetxkdyhwsb.us-east-1.rds.amazonaws.com	",
+  "database":"und1adfp7lx2a0gr",
+  "dialect": "mysql"
+}
+}
