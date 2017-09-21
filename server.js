@@ -63,9 +63,9 @@ apiRoutes.post('/Admins', (req,res) =>{
 app.get('/Alladmins', (req,res)=>{
   db.Admins
     .findAll({})
-    .then(response){
+    .then((response)=> {
       res.json(response);
-    }
+    }); 
 });
 
 
