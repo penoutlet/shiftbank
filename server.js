@@ -6,7 +6,6 @@ var app = express();
 var morgan = require("morgan");
 var bcrypt = require("bcrypt");
 var methodOverride = require('method-override');
-var axios = require('axios');
 app.set('secret', "basdlkfjasfa");
 // // Serve static content for the app from the "public" directory in the application directory.
 app.use(express.static(process.cwd() + "/public"));
@@ -47,7 +46,7 @@ apiRoutes.post('/Admins', (req,res) =>{
 	var saltRounds = 10;
 		bcrypt.genSalt(saltRounds, (err,salt)=> {
 			bcrypt.hash(req.body.password, salt, (err,hash)=> {
-				db.User
+				db.Admins
 		.create({username: req.body.username, password: hash, email: req.body.email})
 		.then((response)=>{
 
@@ -55,10 +54,10 @@ apiRoutes.post('/Admins', (req,res) =>{
 			jwt.sign(req.body, app.get("secret"), {});
 			console.log('first token' + token);
 			// res.redirect('options?token=' + token);
-      res.send("Admin succesfully added.")
 		});
 			});
 		});
+    res.send("Admin succesfully added.")
 	});
 
 
