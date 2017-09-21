@@ -46,7 +46,7 @@ apiRoutes.post('/Admins', (req,res) =>{
 	var saltRounds = 10;
 		bcrypt.genSalt(saltRounds, (err,salt)=> {
 			bcrypt.hash(req.body.password, salt, (err,hash)=> {
-				db.Admins
+				db.Admin
 		.create({username: req.body.username, password: hash, email: req.body.email})
 		.then((response)=>{
 
