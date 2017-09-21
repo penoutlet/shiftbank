@@ -57,15 +57,16 @@ apiRoutes.post('/Admins', (req,res) =>{
 		});
 			});
 		});
-    res.send("Admin succesfully added.")
-	});
+    // res.send("Admin succesfully added.")
+res.redirect("/Alladmins")
+  });
 
 app.get('/Alladmins', (req,res)=>{
   db.Admins
     .findAll({})
     .then((response)=> {
       res.json(response);
-    }); 
+    });
 });
 
 
