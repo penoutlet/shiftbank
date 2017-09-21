@@ -62,7 +62,7 @@ res.redirect("/Alladmins")
   });
 
 app.get('/Alladmins', (req,res)=>{
-  db.Admins
+  db.Admin
     .findAll({})
     .then((response)=> {
       res.json(response);
