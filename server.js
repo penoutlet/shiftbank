@@ -36,9 +36,9 @@ app.get('/', (req,res) => {
 	res.render('index'); // form that adds admin to db.
 });
 
-app.get('/options') {
-  res.send("Add Shifts or Edit Shifts");
-}
+// app.get('/options') {
+//   res.send("Add Shifts or Edit Shifts");
+// }
 
 apiRoutes.post('/Admins', (req,res) =>{
 	var signed= '';
