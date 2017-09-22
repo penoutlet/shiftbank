@@ -65,7 +65,8 @@ console.log(req.body);
 			});
 		});
     // res.send("Admin succesfully added.")
-res.redirect("/Admins")
+    setTimeout(function() {
+      res.redirect("/admins") }, 1000) ;
   });
 
 
