@@ -1,10 +1,22 @@
 <h2> View users </h2>
 
 {{#each Admin}}
-	<ul>
-		<li> Username: {{Email}}
-		<li> Email: {{Email}}
-		<button id='chat-button'> Start Chat </button>
-	</ul>
-	<hr>
+		<hr>
+		<div class='panel body'>
+			<li>Username: {{Email}}<li> Email: {{Email}}</li>
+		<li><a href= '#'> View Profile </a></li>
+	</div>
+
 {{/each}}
+
+<style>
+li {
+	background-color: yellow;
+	text-align: center;
+	height: 100px;
+}
+
+body {
+	background-color: black;
+}
+</style>
