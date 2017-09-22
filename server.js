@@ -39,7 +39,7 @@ app.get('/Admins', (req,res)=>{
   db.Admin
     .findAll({})
     .then((response)=> {
-      res.json(response);
+      res.render("Allshifts",{Admin: response});
     });
 });
 // app.get('/options') {
