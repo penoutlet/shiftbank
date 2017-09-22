@@ -35,19 +35,26 @@ app.get('/', (req,res) => {
 	res.render('index'); // form that adds admin to db.
 });
 
+app.get('/Admins', (req,res)=>{
+  db.Admin
+    .findAll({})
+    .then((response)=> {
+      res.json(response);
+    });
+});
 // app.get('/options') {
 //   res.send("Add Shifts or Edit Shifts");
 // }
 
-apiRoutes.post('/Admins', (req,res) =>{
+app.post('/Admins', (req,res) =>{
 	var signed= '';
-
+console.log(req.body);
 
 	var saltRounds = 10;
 		bcrypt.genSalt(saltRounds, (err,salt)=> {
 			bcrypt.hash(req.body.password, salt, (err,hash)=> {
 				db.Admin
-		.create({username: req.body.username, password: hash, email: req.body.email})
+		.create({Username: req.body.username, Password: hash, Email: req.body.email})
 		.then((response)=>{
 
 			var token =
@@ -58,16 +65,10 @@ apiRoutes.post('/Admins', (req,res) =>{
 			});
 		});
     // res.send("Admin succesfully added.")
-res.redirect("/Alladmins")
+res.redirect("/Admins")
   });
 
-app.get('/Alladmins', (req,res)=>{
-  db.Admin
-    .findAll({})
-    .then((response)=> {
-      res.json(response);
-    });
-});
+
 
 
  apiRoutes.use((req,res,next) => {

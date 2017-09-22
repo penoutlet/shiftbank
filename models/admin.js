@@ -1,9 +1,17 @@
 var Sequelize = require("sequelize");
 module.exports = function(sequelize, DataTypes) {
  return sequelize.define("Admin", {
-    Username: DataTypes.STRING,
-    Password: DataTypes.STRING,
-    Email: DataTypes.STRING
-
+    Username: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    Password: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    Email: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }
   });
 }
