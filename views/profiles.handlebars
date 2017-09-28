@@ -1,0 +1,38 @@
+<h2> View Profiles </h2>
+
+{{#each Profile}}
+		<hr>
+		<div class='panel body'>
+				<div class= 'fields'> <strong> Username: </strong>  {{Username}}
+			</div>
+				<div class= 'fields'> <strong> Bio: </strong> {{Bio}}
+			</div>
+				<div class='fields'> <strong> Work: </strong> {{Work}}
+			</div>
+				<div class= 'fields'> <strong> Religion: </strong> {{Religious_Beliefs}}
+			</div>
+				<div class= 'fields'> <strong> Hobbies: </strong> {{Hobbies}}
+			</div>
+				<div class= 'fields'> <strong> Languages: </strong> {{Languages}}
+			</div>
+	</div>
+
+{{/each}}
+
+<style>
+.fields{
+	font-size: 20px;
+	font: bold;
+}
+li {
+	background-color: yellow;
+	height: 100px;
+}
+
+body {
+	background-color: black;
+}
+h2 {
+	color: white;
+}
+</style>

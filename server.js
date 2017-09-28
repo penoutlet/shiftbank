@@ -35,25 +35,43 @@ app.get('/', (req,res) => {
 	res.render('index'); // form that adds admin to db.
 });
 
-app.get('/Admins', (req,res)=>{
-  db.Admin
+app.get('/Accounts', (req,res)=>{
+  db.Account
     .findAll({})
     .then((response)=> {
-      res.render("Allshifts",{Admin: response});
+      res.render("Accounts",{Account: response});
     });
 });
 // app.get('/options') {
 //   res.send("Add Shifts or Edit Shifts");
 // }
+app.get("/makeprofile", (req,res)=> {
+  res.render('makeprofile');
+});
 
-app.post('/Admins', (req,res) =>{
+app.post("/profiles", (req,res)=> {
+  db.Profile
+    .create({Bio: req.body.bio, Work: req.body.work, Hobbies: req.body.hobbies, Religious_Beliefs: req.body.religiousbeliefs, Languages: req.body.languages})
+    .then((Profile)=> {
+      setTimeout(()=> res.redirect("profiles"), 2000)
+    })
+})
+
+app.get('/profiles', (req,res)=>{
+  db.Profile
+    .findAll({})
+    .then((Profile)=>{
+      res.render('profiles', {Profile})
+    })
+})
+app.post('/Accounts', (req,res) =>{
 	var signed= '';
 console.log(req.body);
 
 	var saltRounds = 10;
 		bcrypt.genSalt(saltRounds, (err,salt)=> {
 			bcrypt.hash(req.body.password, salt, (err,hash)=> {
-				db.Admin
+				db.Account
 		.create({Username: req.body.username, Password: hash, Email: req.body.email})
 		.then((response)=>{
 
@@ -66,7 +84,7 @@ console.log(req.body);
 		});
     // res.send("Admin succesfully added.")
     setTimeout(function() {
-      res.redirect("/admins") }, 1000) ;
+      res.redirect("/makeprofile") }, 1000) ;
   });
 
 
@@ -96,20 +114,7 @@ console.log(req.body);
 
  apiRoutes.get('/', (req,res)=> {
    res.send("Add Shifts or Edit Shifts");
-
 });
-
- // apiRoutes.get('/Allshifts',(req,res)=>{
- // 	db.User
- // 		.findAll({})
- // 		.then((data)=>{
- // 		res.render('Allshifts', {Allshifts: data});
- // 	});
- // });
-
-// apiRoutes.get('/Addshifts', (req,res)=> {
-//   res.render('Addshifts'); // will post to allshifts.
-// })
 
 app.use("/api", apiRoutes);
 
