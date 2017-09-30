@@ -28,95 +28,86 @@ app.use(morgan('dev'));
 
 var db = require("./models");
 
-var apiRoutes = express.Router();
+app.get('/',(req,res) => {res.render('index'); // form that adds admin to db.
 
-app.get('/', (req,res) => {
-
-	res.render('index'); // form that adds admin to db.
 });
 
-app.get('/Accounts', (req,res)=>{
+app.post('/Accounts', (req,res) =>{
+	var saltRounds = 10;
+		bcrypt.genSalt(saltRounds, (err,salt)=> {
+			bcrypt.hash(req.body.password, salt, (err,hash)=> {
+				db.Account
+		      .create({Username: req.body.username, Password: hash, Email: req.body.email})
+		        .then((response)=>{
+
+              setTimeout(function() {
+                res.redirect('/makeprofile'), 2000
+              });
+			     });
+	     });
+   });
+});
+
+
+app.get('/users', (req,res)=>{
   db.Account
     .findAll({})
-    .then((response)=> {
-      res.render("Accounts",{Account: response});
-    });
+      .then((response)=> {
+        res.render("Accounts",{Account: response});
+       });
 });
-// app.get('/options') {
-//   res.send("Add Shifts or Edit Shifts");
-// }
+
 app.get("/makeprofile", (req,res)=> {
   res.render('makeprofile');
 });
 
 app.post("/profiles", (req,res)=> {
   db.Profile
-    .create({Bio: req.body.bio, Work: req.body.work, Hobbies: req.body.hobbies, Religious_Beliefs: req.body.religiousbeliefs, Languages: req.body.languages})
-    .then((Profile)=> {
-      setTimeout(()=> res.redirect("profiles"), 2000)
-    })
-})
+    .create({Bio: req.body.bio, Work: req.body.work, Hobbies: req.body.hobbies,
+      Religious_Beliefs: req.body.religiousbeliefs, Languages: req.body.languages})
+      .then((Profile)=> {
+        setTimeout(()=> res.redirect("profiles"), 2000)
+      });
+});
 
 app.get('/profiles', (req,res)=>{
   db.Profile
     .findAll({})
-    .then((Profile)=>{
-      res.render('profiles', {Profile})
-    })
-})
-app.post('/Accounts', (req,res) =>{
-	var signed= '';
-console.log(req.body);
+     .then((Profile)=>{
+       res.render('profiles', {Profile})
+     });
+ });
 
-	var saltRounds = 10;
-		bcrypt.genSalt(saltRounds, (err,salt)=> {
-			bcrypt.hash(req.body.password, salt, (err,hash)=> {
-				db.Account
-		.create({Username: req.body.username, Password: hash, Email: req.body.email})
-		.then((response)=>{
-
-			var token =
-			jwt.sign(req.body, app.get("secret"), {});
-			console.log('first token' + token);
-			// res.redirect('options?token=' + token);
-		});
-			});
-		});
-    // res.send("Admin succesfully added.")
-    setTimeout(function() {
-      res.redirect("/makeprofile") }, 1000) ;
-  });
+app.get('/', (req,res)=> {
+ res.send("Add Shifts or Edit Shifts");
+}
+);
 
 
 
+ // secRoutes.use((req,res,next) => {
+ // 	var token = req.body.token || req.query.token || req.params.token || req.header['x-access-token'];
+ // 	 if (token ) {
+ // 	 	jwt.verify(token, app.get('secret'), function(err,decoded) {
+ // 	 		if (err) {
+ // 	 			return res.json({ success: false, message: 'Failed to authenticate token.'})
+ // 	 		}
+ // 	 		else {
+ // 	 			req.decoded = decoded;
+ // 	 			next();
+ // 	 		}
+ // 	 	});
+ // 	 }
+ // 	 else {
+ // 	 	return res.status(403).send({
+ // 	 		success: false,
+ // 	 		message: "No token provided.",
+ // 	 		reqheader: req.header['x-access-token'],
+ // 	 	});
+ // 	 	}
+ // 	 });
 
- apiRoutes.use((req,res,next) => {
- 	var token = req.body.token || req.query.token || req.header['x-access-token'];
- 	 if (token ) {
- 	 	jwt.verify(token, app.get('secret'), function(err,decoded) {
- 	 		if (err) {
- 	 			return res.json({ success: false, message: 'Failed to authenticate token.'})
- 	 		}
- 	 		else {
- 	 			req.decoded = decoded;
- 	 			next();
- 	 		}
- 	 	});
- 	 }
- 	 else {
- 	 	return res.status(403).send({
- 	 		success: false,
- 	 		message: "No token provided.",
- 	 		reqheader: req.header['x-access-token'],
- 	 	});
- 	 	}
- 	 });
-
- apiRoutes.get('/', (req,res)=> {
-   res.send("Add Shifts or Edit Shifts");
-});
-
-app.use("/api", apiRoutes);
+// app.use("/secure", secRoutes);
 
 db.sequelize.sync({force: false }).then(function() {
 	app.listen(PORT, function() {
